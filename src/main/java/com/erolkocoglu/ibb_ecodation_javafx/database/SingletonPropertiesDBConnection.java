@@ -1,66 +1,77 @@
 package com.erolkocoglu.ibb_ecodation_javafx.database;
 
-import com.erolkocoglu.ibb_ecodation_javafx.utils.SpecialColor;
-
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.sql.*;
+import java.util.Properties;
 
-public class SingletonDBConnection {
+public class SingletonPropertiesDBConnection {
     // Field
     // Database  Information Data
-    private static final String URL = "jdbc:h2:./h2db/user_management";
-    //private static final String URL = "jdbc:h2:./h2db/user_management?" + "AUTO_SERVER=TRUE";
-    //private static final String URL = "jdbc:h2:~/h2db/user_management"; //kök dizin
-    private static final String USERNAME = "sa";
-    private static final String PASSWORD = "";
+    private static String URL;
+    private static String USERNAME;
+    private static String PASSWORD;
 
     // Singleton Design pattern
-    private static SingletonDBConnection instance;
+    private static SingletonPropertiesDBConnection instance;
     private Connection connection;
 
     // Parametresiz Constructor (private ile dışarıdan erişilemez olmasını sağlamak)
-    private SingletonDBConnection() {
+    private SingletonPropertiesDBConnection() {
         try {
-            // JDBC Yüksle
+            // JDBC Yükle
+            loadDatabaseConfig(); // Konfigürasyonu oku
             Class.forName("org.h2.Driver");
-            // Bağlantı oluşturmak
             this.connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-            System.out.println(SpecialColor.GREEN + "Veritabanı bağlantısı başarılı" + SpecialColor.RESET);
-        } catch (Exception exception) {
-            exception.printStackTrace();
-            System.out.println(SpecialColor.RED + "Veritabanı bağlantısı başarısız" + SpecialColor.RESET);
-            throw new RuntimeException("Veritabanı bağlantısı başarısız");
+            System.out.println("Veritabanı bağlantısı başarılı");
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("Veritabanı bağlantısı başarısız!");
         }
     }
 
-    // Singleton Design Intance
-    public static synchronized SingletonDBConnection getInstance() {
+    // Konfigürasyonu yükleme
+    private static void loadDatabaseConfig() {
+        try (FileInputStream fis = new FileInputStream("C:\\Users\\User\\IdeaProjects\\ibb_ecodation_javafx\\src\\main\\resources\\config.properties")) {
+            Properties properties = new Properties();
+            properties.load(fis);
+            URL = properties.getProperty("db.url", "jdbc:h2:./h2db/user_management");
+            //URL = properties.getProperty("db.url", "jdbc:h2:~/h2db/user_management");
+            USERNAME = properties.getProperty("db.username", "sa");
+            PASSWORD = properties.getProperty("db.password", "");
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Veritabanı yapılandırması yüklenemedi!");
+        }
+    }
+
+    // Singleton Instance
+    public static synchronized SingletonPropertiesDBConnection getInstance() {
         if (instance == null) {
-            instance = new SingletonDBConnection();
+            instance = new SingletonPropertiesDBConnection();
         }
         return instance;
     }
 
-    // Bağlantı nesnesi çağırma
     public Connection getConnection() {
         return connection;
     }
 
-    // Database Kapatmak
     public static void closeConnection() {
         if (instance != null && instance.connection != null) {
             try {
                 instance.connection.close();
-                System.out.println(SpecialColor.RED + "Veritabanı bağlantısı kapatıldı");
+                System.out.println("Veritabanı bağlantısı kapatıldı.");
             } catch (SQLException e) {
-                throw new RuntimeException(e);
+                throw new RuntimeException("Bağlantı kapatılırken hata oluştu!", e);
             }
         }
     }
 
     // Database Test
-    public static void dataSet() throws SQLException {
+    public static void dataSet()  throws SQLException {
         // Singleton Instance ile Bağlantıyı Al
-        SingletonDBConnection dbInstance = SingletonDBConnection.getInstance();
+        SingletonPropertiesDBConnection dbInstance = SingletonPropertiesDBConnection.getInstance();
         Connection conn = dbInstance.getConnection();
 
         Statement stmt = conn.createStatement();
@@ -94,7 +105,6 @@ public class SingletonDBConnection {
         // Bağlantıyı Kapat
         SingletonDBConnection.closeConnection();
     }
-
     public static void main(String[] args) throws SQLException {
         dataSet();
     }
