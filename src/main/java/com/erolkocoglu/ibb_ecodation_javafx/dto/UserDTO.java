@@ -5,7 +5,7 @@ import lombok.*;
 // Lombok
 @Getter
 @Setter
-@AllArgsConstructor // Parametreli Constructor
+//@AllArgsConstructor // Parametreli Constructor
 @NoArgsConstructor  // Parametresiz Constructor
 @ToString
 @Builder
@@ -20,6 +20,14 @@ public class UserDTO {
 
     // Parametresiz Constructor
     // Parametreli Constructor
+    public UserDTO(Integer id, String username, String password, String email) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.email = email;
+    }
+
+
     // Getter And Setter
     // Method
 
@@ -35,6 +43,5 @@ public class UserDTO {
         System.out.println(userDTO);
     }
     */
-
 
 } //end Class

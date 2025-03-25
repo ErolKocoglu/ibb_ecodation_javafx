@@ -40,10 +40,8 @@ public class AdminController {
     @FXML
     private TableColumn<UserDTO, String> usernameColumn;
 
-
     @FXML
     private TableColumn<UserDTO, String> emailColumn;
-
 
     @FXML
     private TableColumn<UserDTO, String> passwordColumn;
@@ -129,14 +127,169 @@ public class AdminController {
         }
     }
 
+    /// ////////////////////////////////////////////////////////////////////////////
+    /// EKLEME
+    @FXML
+    public void addUser(ActionEvent actionEvent) {
+        TextInputDialog usernameDialog = new TextInputDialog();
+        usernameDialog.setTitle("Yeni Kullanıcı Ekle");
+        usernameDialog.setHeaderText("Yeni Kullanıcı Ekle");
+        usernameDialog.setContentText("Kullanıcı Adı:");
+
+        // Username verisi varsa
+        Optional<String> optionalUsername = usernameDialog.showAndWait();
+
+        // Text Input içine veri girilmişse
+        if (optionalUsername.isPresent()) {
+            String username = optionalUsername.get();
+
+            // Şifre için input
+            TextInputDialog passwordDialog = new TextInputDialog();
+            passwordDialog.setTitle("Yeni Kullanıcı Şifre");
+            passwordDialog.setHeaderText("Yeni Kullanıcı Şifre");
+            passwordDialog.setContentText("Kullanıcı Şifre:");
+
+            // Username verisi varsa
+            Optional<String> optionalPassword = usernameDialog.showAndWait();
+
+            // Text Input içine veri girilmişse
+            if (optionalPassword.isPresent()) {
+                String password = optionalPassword.get();
+
+                // Email için input
+                TextInputDialog emailDialog = new TextInputDialog();
+                emailDialog.setTitle("Yeni Kullanıcı Email");
+                emailDialog.setHeaderText("Yeni Kullanıcı Email");
+                emailDialog.setContentText("Kullanıcı Email:");
+
+                // Username verisi varsa
+                Optional<String> optionalEmail = usernameDialog.showAndWait();
+
+                // Text Input içine veri girilmişse
+                if (optionalEmail.isPresent()) {
+                    String email = optionalPassword.get();
+
+                    // Kullanıcıyı Ekle
+                    Optional<UserDTO> newUser = Optional.of(new UserDTO(0, username, password, email));
+
+                    // Optional içindeki değeri almak istiyorsak
+                    newUser.ifPresent(user -> {
+                        Optional<UserDTO> createdUser = userDAO.create(user);
+
+                        // createdUser varsa => boolean dönderirir.
+                        if (createdUser.isPresent()) {
+                            showAlert("Başarılı", "Kullanıcı Başarıyla Eklendi", Alert.AlertType.INFORMATION);
+                            refreshTable();
+                        } else {
+                            showAlert("Başarısız", "Kullanıcı Eklerken hata alındı Eklendi", Alert.AlertType.ERROR);
+                        }
+                    }); //end  newUser.ifPresent
+                } //end optionalEmail.isPresent()
+            } //end optionalPassword.isPresent()
+        } //end optionalUsername.isPresent()
+    } //end method addUser
 
     /// ////////////////////////////////////////////////////////////////////////////
-    public void addUser(ActionEvent actionEvent) {
-    }
-
+    /// GÜNCELLEME
+    @FXML
     public void updateUser(ActionEvent actionEvent) {
+        // Seçilen Kullancıyı Güncelle
+        // Tıklanmış kullanıcı bilgisini almak
+        UserDTO selectedUser = userTable.getSelectionModel().getSelectedItem();
+        if (selectedUser != null) {
+            // Kullanıcı Güncelle
+            TextInputDialog usernameDialog = new TextInputDialog();
+            usernameDialog.setTitle("Kullanıcı Güncelle");
+            usernameDialog.setHeaderText("Kullanıcı Güncelle");
+            usernameDialog.setContentText("Kullanıcı Adı:");
+
+            // Username verisi varsa
+            Optional<String> optionalUsername = usernameDialog.showAndWait();
+
+            // Text Input içine veri girilmişse
+            if (optionalUsername.isPresent()) {
+                String username = optionalUsername.get();
+
+                // Şifre için input
+                TextInputDialog passwordDialog = new TextInputDialog();
+                passwordDialog.setTitle("Güncelle Kullanıcı Şifre");
+                passwordDialog.setHeaderText("Güncelle Kullanıcı Şifre");
+                passwordDialog.setContentText("Kullanıcı Şifre:");
+
+                // Username verisi varsa
+                Optional<String> optionalPassword = usernameDialog.showAndWait();
+
+                // Text Input içine veri girilmişse
+                if (optionalPassword.isPresent()) {
+                    String password = optionalPassword.get();
+
+                    // Email için input
+                    TextInputDialog emailDialog = new TextInputDialog();
+                    emailDialog.setTitle("Güncelle Kullanıcı Email");
+                    emailDialog.setHeaderText("Güncelle Kullanıcı Email");
+                    emailDialog.setContentText("Kullanıcı Email:");
+
+                    // Username verisi varsa
+                    Optional<String> optionalEmail = usernameDialog.showAndWait();
+
+                    // Text Input içine veri girilmişse
+                    if (optionalEmail.isPresent()) {
+                        String email = optionalPassword.get();
+
+                        // Kullanıcıyı Ekle
+                        Optional<UserDTO> newUser = Optional.of(new UserDTO(0, username, password, email));
+
+                        // Optional içindeki değeri almak istiyorsak
+                        newUser.ifPresent(user -> {
+                            Optional<UserDTO> createdUser = userDAO.update(selectedUser.getId(), selectedUser);
+
+                            // createdUser varsa => boolean dönderirir.
+                            if (createdUser.isPresent()) {
+                                showAlert("Başarılı", "Kullanıcı Başarıyla Güncellendi", Alert.AlertType.INFORMATION);
+                                refreshTable();
+                            } else {
+                                showAlert("Başarısız", "Kullanıcı Eklerken hata alındı Güncellenmedi", Alert.AlertType.ERROR);
+                            }
+                        }); //end  newUser.ifPresent
+                    } //end optionalEmail.isPresent()
+                } //end optionalPassword.isPresent()
+            } else {
+                showAlert("Uyarı", "Lütfen bir kullanıcı Seçiniz", Alert.AlertType.ERROR);
+            } // else
+        } // end mthod update
     }
 
+    /// ////////////////////////////////////////////////////////////////////////////
+    /// SİLME
+    @FXML
     public void deleteUser(ActionEvent actionEvent) {
+        // Seçilen Kullancıyı Silmek
+        // Tıklanmış kullanıcı bilgisini almak
+        Optional<UserDTO> selectedUser = Optional.ofNullable(userTable.getSelectionModel().getSelectedItem());
+        if (selectedUser != null) {
+
+            // Onay Pencerisi
+            Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
+            confirmationAlert.setTitle("Silme Onayı");
+            confirmationAlert.setHeaderText("Kullanıcı Silmek ister misiniz ?");
+            confirmationAlert.setContentText("Silinecek kullanıcı" + selectedUser.get().getUsername());
+
+            // Kullanıcıyı Onayı Almak
+            Optional<ButtonType> isDelete = confirmationAlert.showAndWait();
+            if (isDelete.isPresent() && isDelete.get() == ButtonType.OK) {
+                // Optional içindeki değeri almak istiyorsak
+                selectedUser.ifPresent(user -> {
+                    Optional<UserDTO> deleteUser = userDAO.delete(selectedUser.get().getId());
+
+                    // deleteUser varsa => boolean dönderirir.
+                    if (deleteUser.isPresent()) {
+                        showAlert("Başarılı", "Kullanıcı Başarıyla Silindi", Alert.AlertType.INFORMATION);
+                        refreshTable();
+                    } else {
+                        showAlert("Başarısız", "Kullanıcı Eklerken hata alındı Silinmedi", Alert.AlertType.ERROR);
+                    }
+                }); //end  newUser.ifPresent
+            }
+        } // end method delete
     }
 }
