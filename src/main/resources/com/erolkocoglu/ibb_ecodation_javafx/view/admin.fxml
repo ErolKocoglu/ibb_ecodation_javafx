@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Ana konteyner olan admiin rayüz sayfası -->
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Button?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.erolkocoglu.ibb_ecodation_javafx.controller.AdminController">
+    <children>
+        <!--Dikey düzenlenme için VBOX tablo içeriğin kullanalım-->
+        <!--
+             JavaFX’te VBox, bir layout (yerleşim) yöneticisidir. Yani sahnedeki bileşenlerin (button, label, textfield vb.)
+             nasıl konumlandırılacağını belirleyen bir konteynerdir.
+             VBox özel olarak bileşenleri dikey (vertical) olarak yerleştirir.
+             Her yeni bileşen, bir öncekinin altına gelecek şekilde sıralanır.
+        -->
+        <VBox  spacing="10" layoutX="10" layoutY="10"
+               style="-fx-padding: 1;" stylesheets="@css/styles.css">
+
+            <!--Kullanıcı Bilgilerini Göstermek için tablo-->
+            <TableView fx:id="userTable">
+                <columns>
+                    <TableColumn fx:id="idColumn" text="ID"/>
+                    <TableColumn fx:id="usernameColumn" text="Kullanıcı Adı"/>
+                    <TableColumn fx:id="emailColumn" text="Email Adres"/>
+                    <TableColumn fx:id="passwordColumn" text="Şifre"/>
+                </columns>
+            </TableView>
+
+            <!--Butonları Yatay olarak düzenlenmesini için-->
+            <HBox spacing="10">
+                <Button text="Kullanıcı Ekle" onAction="#addUser" />
+                <Button text="Kullanıcı Güncelle" onAction="#updateUser" />
+                <Button text="Kullanıcı Sil" onAction="#deleteUser" />
+            </HBox>
+
+            <!--Butonları Yatay olarak düzenlenmesini için-->
+            <HBox spacing="10">
+                <Button text="Tabloyu Yenile" onAction="#refreshTable" />
+                <Button text="Çıkış Yap" onAction="#logout" />
+            </HBox>
+
+        </VBox>
+    </children>
+</AnchorPane>

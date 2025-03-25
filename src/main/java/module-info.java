@@ -48,6 +48,18 @@ module com.erolkocoglu.ibb_ecodation_javafx {
     // DTO (Data Transfer Object) paketinin içeriği, JavaFX bileşenleri ve Lombok tarafından erişilebilir olmalıdır.
     opens com.erolkocoglu.ibb_ecodation_javafx.dto to javafx.base, lombok;
 
+    // Controller sınıfları FXML tarafından kullanılacağı için açılması gerekiyor.
+    opens com.erolkocoglu.ibb_ecodation_javafx.controller to javafx.fxml;
+
+    // DAO (Data Access Object) sınıfları, SQL bağlantısı kullandığı için açılıyor.
+    opens com.erolkocoglu.ibb_ecodation_javafx.dao to java.sql;
+
+    // Veritabanı bağlantısı sağlayan sınıfların da SQL modülüne açık olması gerekiyor.
+    opens com.erolkocoglu.ibb_ecodation_javafx.database to java.sql;
+    // DAO sınıflarını dışarıya açıyoruz. Böylece başka modüller veritabanı işlemlerini çağırabilir.
+    exports com.erolkocoglu.ibb_ecodation_javafx.dao;
+    // // Veritabanı bağlantı paketini dış dünyaya açıyoruz. Diğer modüller DB bağlantısını kullanabilir.
+    exports com.erolkocoglu.ibb_ecodation_javafx.database;
     // #####################################################################
     // Paket dışa aktarmak
     // `exports` ifadesi, paketin diğer modüller tarafından erişilebilir olmasını sağlar.
