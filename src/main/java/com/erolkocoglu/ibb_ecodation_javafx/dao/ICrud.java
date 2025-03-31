@@ -3,7 +3,7 @@ package com.erolkocoglu.ibb_ecodation_javafx.dao;
 import java.util.List;
 import java.util.Optional;
 
-public interface ICrud<T>{
+public interface ICrud<T> {
     // CREATE
     Optional<T> create(T t);
 

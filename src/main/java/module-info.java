@@ -7,6 +7,8 @@ module com.erolkocoglu.ibb_ecodation_javafx {
 
     // JavaFX FXML dosyalarını (FXML UI tasarımları) yükleyebilmek için gereklidir.
     requires javafx.fxml;
+
+    // WEB
     //requires javafx.web;
 
     // #######################################################################################
@@ -34,8 +36,12 @@ module com.erolkocoglu.ibb_ecodation_javafx {
     // JDBC ile veritabanı bağlantısı kurabilmek için gerekli modül
     // Java'daki SQL işlemlerini (Connection, Statement, ResultSet vb.) gerçekleştirebilmek için gereklidir.
     requires java.sql;
-    //requires java.desktop;
-    requires org.apache.poi.poi;
+    requires com.h2database;
+    requires jbcrypt;
+    requires org.apache.poi.ooxml;
+    requires org.apache.pdfbox;
+    requires java.desktop;
+    requires java.mail;
     //requires eu.hansolo.tilesfx;
 
     // #######################################################################################
@@ -43,7 +49,6 @@ module com.erolkocoglu.ibb_ecodation_javafx {
     // `opens` ifadesi, bir paketin runtime'da (çalışma zamanında) refleksiyon (reflection) kullanılarak erişilebilir olmasını sağlar.
     // Ana paket (Root package) açılıyor, böylece FXML dosyalarından erişilebilir.
     opens com.erolkocoglu.ibb_ecodation_javafx to javafx.fxml;
-
 
     // DTO (Data Transfer Object) paketinin içeriği, JavaFX bileşenleri ve Lombok tarafından erişilebilir olmalıdır.
     opens com.erolkocoglu.ibb_ecodation_javafx.dto to javafx.base, lombok;
@@ -56,44 +61,25 @@ module com.erolkocoglu.ibb_ecodation_javafx {
 
     // Veritabanı bağlantısı sağlayan sınıfların da SQL modülüne açık olması gerekiyor.
     opens com.erolkocoglu.ibb_ecodation_javafx.database to java.sql;
-    // DAO sınıflarını dışarıya açıyoruz. Böylece başka modüller veritabanı işlemlerini çağırabilir.
-    exports com.erolkocoglu.ibb_ecodation_javafx.dao;
-    // // Veritabanı bağlantı paketini dış dünyaya açıyoruz. Diğer modüller DB bağlantısını kullanabilir.
-    exports com.erolkocoglu.ibb_ecodation_javafx.database;
+
     // #####################################################################
     // Paket dışa aktarmak
     // `exports` ifadesi, paketin diğer modüller tarafından erişilebilir olmasını sağlar.
 
-    // Ana paketi dış dünyaya açıyoruz. Diğer modüller bu paketin içeriğini kullanabilir.
-    exports com.erolkocoglu.ibb_ecodation_javafx;
-}
-
-
-/*
-
-    // Controller sınıfları FXML tarafından kullanılacağı için açılması gerekiyor.
-    opens com.hamitmizrak.ibb_ecodation_javafx.controller to javafx.fxml;
-
-    // DAO (Data Access Object) sınıfları, SQL bağlantısı kullandığı için açılıyor.
-    opens com.hamitmizrak.ibb_ecodation_javafx.dao to java.sql;
-
-    // Veritabanı bağlantısı sağlayan sınıfların da SQL modülüne açık olması gerekiyor.
-    opens com.hamitmizrak.ibb_ecodation_javafx.database to java.sql;
-
-
-
- // #####################################################################
     // DAO sınıflarını dışarıya açıyoruz. Böylece başka modüller veritabanı işlemlerini çağırabilir.
-    exports com.hamitmizrak.ibb_ecodation_javafx.dao;
+    exports com.erolkocoglu.ibb_ecodation_javafx.dao;
 
     // // Veritabanı bağlantı paketini dış dünyaya açıyoruz. Diğer modüller DB bağlantısını kullanabilir.
-    exports com.hamitmizrak.ibb_ecodation_javafx.database;
-}*/
+    exports com.erolkocoglu.ibb_ecodation_javafx.database;
 
+    // Ana paketi dış dünyaya açıyoruz. Diğer modüller bu paketin içeriğini kullanabilir.
+    exports com.erolkocoglu.ibb_ecodation_javafx;
+    opens com.erolkocoglu.ibb_ecodation_javafx.utils to javafx.base, lombok;
+}
 
-
-/*Default*/
-/*module com.hamitmizrak.ibb_ecodation_javafx {
+//Default
+/*
+module com.erolkocoglu.ibb_ecodation_javafx {
         requires javafx.controls;
         requires javafx.fxml;
         //requires javafx.web;
@@ -110,4 +96,5 @@ module com.erolkocoglu.ibb_ecodation_javafx {
 
         opens com.hamitmizrak.ibb_ecodation_javafx to javafx.fxml;
         exports com.hamitmizrak.ibb_ecodation_javafx;
-        }*/
+        }
+*/
