@@ -1,11 +1,11 @@
-package com.erolkocoglu.ibb_ecodation_javafx.dto;
+package com.erolkocoglu.ibb_ecodation_javafx.utils;
 
 /**
  * 📌 Kullanıcı Rollerini Tanımlayan Enum
  */
 public enum ERole {
-    STUDENT("Öğrenci"),
-    TEACHER("Öğretmen"),
+    USER("Kullanıcı"),
+    MODERATOR("Moderatör"),
     ADMIN("Yönetici");
 
     // Field
