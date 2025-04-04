@@ -190,7 +190,7 @@ public class AdminController {
     @FXML
     public void openKdvPane() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/hamitmizrak/ibb_ecodation_javafx/view/kdv.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/erolkocoglu/ibb_ecodation_javafx/view/kdv.fxml"));
             Parent kdvRoot = loader.load();
             Stage stage = new Stage();
             stage.setTitle("KDV Paneli");
@@ -1036,6 +1036,20 @@ public class AdminController {
     @FXML
     private void showProfile(ActionEvent event) {
         // Kullanıcı profil bilgileri gösterilecek pencere
+        try{
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(FXMLPath.PROFILE));
+            Parent parent = loader.load();
+            Stage stage = (Stage) searchField.getScene().getWindow();
+            stage.setScene(new Scene(parent));
+            stage.setTitle("Kullanıcı Profili");
+            stage.show();
+
+        }catch (Exception e){
+            System.out.println("Hata: Profil sayfasına yönlendirme başarısız");
+            e.printStackTrace();
+            showAlert("Hata", "Profil ekranı yüklenemedi", Alert.AlertType.ERROR);
+        }
+
     }
 
     @FXML

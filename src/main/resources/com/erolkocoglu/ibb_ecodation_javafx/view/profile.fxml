@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.erolkocoglu.ibb_ecodation_javafx.controller.ProfileController"
+            prefHeight="400.0" prefWidth="600.0">
+    <VBox>
+        <HBox>
+            <Button text="Geri" onAction="#backToAdmin" fx:id="backButton"/>
+        </HBox>
+        <TextField fx:id="id" />
+        <TextField fx:id="username"/>
+        <TextField fx:id="email"/>
+        <TextField fx:id="role"/>
+    </VBox>
+
+</AnchorPane>

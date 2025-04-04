@@ -60,6 +60,7 @@ public class LoginController {
         if (optionalLoginUserDTO.isPresent()) {
             UserDTO userDTO = optionalLoginUserDTO.get();
             showAlert("Başarılı", "Giriş Başarılı: " + userDTO.getUsername(), Alert.AlertType.INFORMATION);
+            UserSession.setCurrentUser(userDTO);// Giriş yapmış kullanıcının bilgilerini tutmak için
 
             if (userDTO.getRole() == ERole.ADMIN) {
                 openAdminPane();
