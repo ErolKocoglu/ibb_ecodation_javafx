@@ -1021,6 +1021,15 @@ public class AdminController {
     @FXML
     private void toggleTheme(ActionEvent event) {
         // Tema değiştirme işlemleri burada yapılacak
+        //DARK MODE EKLENECEK
+
+        if(!searchField.getScene().getStylesheets().contains(getClass().getResource("/com/erolkocoglu/ibb_ecodation_javafx/view/css/styles.css").toExternalForm())){
+            //searchField.getScene().getStylesheets().add(getClass().getResource("/com/erolkocoglu/ibb_ecodation_javafx/view/css/styles.css").toExternalForm());
+            searchField.getScene().getStylesheets().add(getClass().getResource("/com/erolkocoglu/ibb_ecodation_javafx/view/css/styles.css").toExternalForm());
+
+        }else{
+            searchField.getScene().getStylesheets().remove(0);
+        }
     }
 
     @FXML
@@ -1038,10 +1047,11 @@ public class AdminController {
         // Kullanıcı profil bilgileri gösterilecek pencere
         try{
             FXMLLoader loader = new FXMLLoader(getClass().getResource(FXMLPath.PROFILE));
-            Parent parent = loader.load();
+            Parent parent = loader.load();//Profil sayfasını yükle
             Stage stage = (Stage) searchField.getScene().getWindow();
             stage.setScene(new Scene(parent));
             stage.setTitle("Kullanıcı Profili");
+            stage.getScene().getStylesheets().add(getClass().getResource("/com/erolkocoglu/ibb_ecodation_javafx/view/css/styles.css").toExternalForm());
             stage.show();
 
         }catch (Exception e){
