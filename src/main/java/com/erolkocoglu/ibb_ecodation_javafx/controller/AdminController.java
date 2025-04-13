@@ -1,6 +1,7 @@
 package com.erolkocoglu.ibb_ecodation_javafx.controller;
 
 import com.erolkocoglu.ibb_ecodation_javafx.dao.KdvDAO;
+import com.erolkocoglu.ibb_ecodation_javafx.dao.NotebookDAO;
 import com.erolkocoglu.ibb_ecodation_javafx.dao.UserDAO;
 import com.erolkocoglu.ibb_ecodation_javafx.database.SingletonPropertiesDBConnection;
 import com.erolkocoglu.ibb_ecodation_javafx.dto.KdvDTO;
@@ -63,10 +64,12 @@ public class AdminController {
 
     private UserDAO userDAO;
     private KdvDAO kdvDAO;
+    private NotebookDAO notebookDAO;
 
     public AdminController() {
         userDAO = new UserDAO();
         kdvDAO = new KdvDAO();
+        notebookDAO = new NotebookDAO();
     }
 
     // User İçin

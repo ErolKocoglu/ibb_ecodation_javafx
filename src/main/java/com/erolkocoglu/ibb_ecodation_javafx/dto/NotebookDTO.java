@@ -18,7 +18,7 @@ public class NotebookDTO {
     private LocalDateTime updatedDate;
     private String category; // Örn: "Kişisel", "İş", "Okul"
     private boolean pinned;  // Sabitlenmiş not mu?
-    private UserDTO userDTO; //Composition
+    private Integer userId; //Composition
 
     // Constructorlar
     // Getter ve Setter'lar

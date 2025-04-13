@@ -66,6 +66,22 @@ public class HelloApplication extends Application {
         );
     """;
             stmt.execute(createKdvTableSQL);
+
+            // Notebook tablosu
+            String createNotebookTableSQL = """
+                    
+                    CREATE TABLE IF NOT EXISTS notebook_table (
+                    id INT AUTO_INCREMENT PRIMARY KEY,
+                    title VARCHAR(50) NOT NULL,
+                    content VARCHAR(255) NOT NULL,
+                    createdDate DATE NOT NULL,
+                    updatedDate DATE NOT NULL,
+                    category VARCHAR(50) NOT NULL,
+                    pinned BOOLEAN NOT NULL,
+                    userId INT NOT NULL,
+                    foreign key(userId) references usertable(id));
+                    """;
+            stmt.execute(createNotebookTableSQL);
         }
 
 
