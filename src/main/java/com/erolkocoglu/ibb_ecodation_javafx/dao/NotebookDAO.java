@@ -66,7 +66,7 @@ public class NotebookDAO {
     public Optional<NotebookDTO> update(int id, NotebookDTO notebookDTO) {
         Optional<NotebookDTO> optionalUpdate = findById(id);
         if (optionalUpdate.isPresent()) {
-            String sql = "UPDATE notebook_table SET title=?, content=?, updatedDate=?, category=?, pinned=?, WHERE id=?";
+            String sql = "UPDATE notebook_table SET title=?, content=?, updatedDate=?, category=?, pinned=? WHERE id=?";
             try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
                 preparedStatement.setString(1, notebookDTO.getTitle());
                 preparedStatement.setString(2, notebookDTO.getContent());

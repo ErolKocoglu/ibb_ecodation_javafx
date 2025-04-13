@@ -1,6 +1,7 @@
 package com.erolkocoglu.ibb_ecodation_javafx.controller;
 
 import com.erolkocoglu.ibb_ecodation_javafx.dao.NotebookDAO;
+import com.erolkocoglu.ibb_ecodation_javafx.dto.KdvDTO;
 import com.erolkocoglu.ibb_ecodation_javafx.dto.NotebookDTO;
 
 import javafx.collections.FXCollections;
@@ -119,6 +120,22 @@ public class NotebookController {
 
         Optional<NotebookDTO> result = dialog.showAndWait();
         return result.orElse(null);
+    }
+
+    @FXML
+    public void updateNote(ActionEvent event) {
+        NotebookDTO selected = notebookTable.getSelectionModel().getSelectedItem();
+        if (selected == null) {
+            showAlert("Uyarı", "Güncellenecek bir kayıt seçin.", Alert.AlertType.WARNING);
+            return;
+        }
+
+        NotebookDTO updated = showNotebookForm(selected);
+        if (updated != null) {
+            notebookDAO.update(Math.toIntExact(selected.getId()), updated);
+            refreshTable();
+            showAlert("Başarılı", "Not kaydı güncellendi.", Alert.AlertType.INFORMATION);
+        }
     }
 
 
