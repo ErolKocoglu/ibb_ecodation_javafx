@@ -9,7 +9,7 @@
 <?import javafx.geometry.Insets?>
 <BorderPane xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.erolkocoglu.ibb_ecodation_javafx.controller.NotificationController"
-            prefWidth="600.0" prefHeight="400.0">
+            prefWidth="550.0" prefHeight="350.0">
 
     <top>
         <Label text="📋 Bildirimler"
@@ -26,9 +26,9 @@
     <bottom>
         <HBox alignment="CENTER_RIGHT" spacing="10">
             <children>
-                <Button text="Kapat"
+                <Button text="Close"
                         onAction="#close"
-                        style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 6;" />
+                        style="-fx-background-color: #d51b08; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 6;" />
             </children>
             <padding>
                 <Insets top="10" right="10" bottom="10" left="10"/>
