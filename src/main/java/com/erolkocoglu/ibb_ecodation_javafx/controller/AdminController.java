@@ -6,6 +6,7 @@ import com.erolkocoglu.ibb_ecodation_javafx.dto.KdvDTO;
 import com.erolkocoglu.ibb_ecodation_javafx.dto.UserDTO;
 import com.erolkocoglu.ibb_ecodation_javafx.utils.ERole;
 import com.erolkocoglu.ibb_ecodation_javafx.utils.FXMLPath;
+import com.erolkocoglu.ibb_ecodation_javafx.utils.StyleMode;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -1023,12 +1024,17 @@ public class AdminController {
         // Tema değiştirme işlemleri burada yapılacak
         //DARK MODE EKLENECEK
 
-        if(!searchField.getScene().getStylesheets().contains(getClass().getResource("/com/erolkocoglu/ibb_ecodation_javafx/view/css/styles.css").toExternalForm())){
+        if(!searchField.getScene().getStylesheets().contains(getClass().getResource(FXMLPath.DARK_MODE).toExternalForm())){
             //searchField.getScene().getStylesheets().add(getClass().getResource("/com/erolkocoglu/ibb_ecodation_javafx/view/css/styles.css").toExternalForm());
-            searchField.getScene().getStylesheets().add(getClass().getResource("/com/erolkocoglu/ibb_ecodation_javafx/view/css/styles.css").toExternalForm());
+            searchField.getScene().getStylesheets().clear();
+            searchField.getScene().getStylesheets().add(getClass().getResource(FXMLPath.DARK_MODE).toExternalForm());
+            StyleMode.currentStyle=FXMLPath.DARK_MODE;
 
         }else{
-            searchField.getScene().getStylesheets().remove(0);
+            searchField.getScene().getStylesheets().clear();
+            searchField.getScene().getStylesheets().add(getClass().getResource(FXMLPath.DEFAULT).toExternalForm());
+            StyleMode.currentStyle=FXMLPath.DEFAULT;
+
         }
     }
 
@@ -1051,7 +1057,7 @@ public class AdminController {
             Stage stage = (Stage) searchField.getScene().getWindow();
             stage.setScene(new Scene(parent));
             stage.setTitle("Kullanıcı Profili");
-            stage.getScene().getStylesheets().add(getClass().getResource("/com/erolkocoglu/ibb_ecodation_javafx/view/css/styles.css").toExternalForm());
+            stage.getScene().getStylesheets().add(getClass().getResource(StyleMode.currentStyle).toExternalForm());
             stage.show();
 
         }catch (Exception e){

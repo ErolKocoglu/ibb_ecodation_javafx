@@ -4,10 +4,7 @@ import com.erolkocoglu.ibb_ecodation_javafx.dao.ICrud;
 import com.erolkocoglu.ibb_ecodation_javafx.dao.ILogin;
 import com.erolkocoglu.ibb_ecodation_javafx.dao.UserDAO;
 import com.erolkocoglu.ibb_ecodation_javafx.dto.UserDTO;
-import com.erolkocoglu.ibb_ecodation_javafx.utils.ERole;
-import com.erolkocoglu.ibb_ecodation_javafx.utils.FXMLPath;
-import com.erolkocoglu.ibb_ecodation_javafx.utils.SceneHelper;
-import com.erolkocoglu.ibb_ecodation_javafx.utils.SpecialColor;
+import com.erolkocoglu.ibb_ecodation_javafx.utils.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -98,7 +95,7 @@ public class LoginController {
 
             Stage stage = (Stage) usernameField.getScene().getWindow();
             stage.setScene(new Scene(parent));
-            stage.setTitle("Admin Panel");
+            stage.setTitle("Admin Panel");stage.getScene().getStylesheets().add(getClass().getResource(StyleMode.currentStyle).toExternalForm());
             stage.show();
         } catch (Exception e) {
             System.out.println(SpecialColor.RED + "Admin Sayfasına yönlendirme başarısız" + SpecialColor.RESET);

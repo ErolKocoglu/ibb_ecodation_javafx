@@ -1,0 +1,92 @@
+.add-user {
+    -fx-background-color: #27ae60;
+    -fx-text-fill: white;
+}
+
+.update-user {
+    -fx-background-color: #2980b9;
+    -fx-text-fill: white;
+}
+
+.delete-user {
+    -fx-background-color: #c0392b;
+    -fx-text-fill: white;
+}
+
+.print-table {
+    -fx-background-color: #95a5a6;
+    -fx-text-fill: white;
+}
+
+.add-kdv {
+    -fx-background-color: #27ae60;
+    -fx-text-fill: white;
+}
+
+.update-kdv {
+    -fx-background-color: #2980b9;
+    -fx-text-fill: white;
+}
+
+.delete-kdv {
+    -fx-background-color: #c0392b;
+    -fx-text-fill: white;
+}
+
+.kdv-export-txt {
+    -fx-background-color: #7f8c8d;
+    -fx-text-fill: white;
+}
+
+.kdv-export-pdf {
+    -fx-background-color: #8e44ad;
+    -fx-text-fill: white;
+}
+
+.kdv-export-excel {
+    -fx-background-color: #16a085;
+    -fx-text-fill: white;
+}
+
+.print-kdv{
+    -fx-background-color: #34495e;
+    -fx-text-fill: white;
+}
+
+.mail-kdv {
+    -fx-background-color: #d35400;
+    -fx-text-fill: white;
+}
+
+.user-table .column-header-background {
+    #-fx-control-inner-background: yellow;
+}
+
+
+.table-cell {
+    -fx-text-fill: #090808;
+}
+
+.user-table .column-header .label {
+    -fx-text-fill: black;
+    -fx-font-weight: bold;
+}
+
+.user-table .column-header {
+    /*-fx-background-color: #555;*/ /* Slightly lighter per-column */
+}
+
+.back-home, .edit-profile {
+    -fx-background-color: #7f8db8; /* Arka plan rengi: Antrasit gri */
+    -fx-text-fill: white; /* Yazı rengi: Beyaz */
+    -fx-font-size: 14px; /* Yazı boyutu */
+    /*-fx-padding: 10px 20px;*/ /* İç boşluk */
+    /*-fx-border-color: #4CAF50;*/ /* Çerçeve rengi: Yeşil */
+    -fx-border-width: 2px; /* Çerçeve kalınlığı */
+    -fx-border-radius: 8px; /* Yuvarlatılmış köşeler */
+    -fx-background-radius: 8px; /* Yuvarlatılmış köşeler */
+    -fx-cursor: hand; /* İmleç tipi */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 5, 0, 0, 2); /* Gölge efekti */
+    -fx-transition: all 0.3s ease; /* Hover ve diğer efektlere geçiş animasyonu */
+}
+

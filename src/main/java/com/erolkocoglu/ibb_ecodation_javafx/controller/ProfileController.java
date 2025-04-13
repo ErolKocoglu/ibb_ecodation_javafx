@@ -5,6 +5,7 @@ import com.erolkocoglu.ibb_ecodation_javafx.dto.UserDTO;
 import com.erolkocoglu.ibb_ecodation_javafx.utils.ERole;
 import com.erolkocoglu.ibb_ecodation_javafx.utils.FXMLPath;
 import com.erolkocoglu.ibb_ecodation_javafx.utils.SpecialColor;
+import com.erolkocoglu.ibb_ecodation_javafx.utils.StyleMode;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -45,6 +46,7 @@ public class ProfileController {
 
     @FXML
     public void initialize() {
+        //Güvenlik açısından şifrenin yazılmasını gösterilmesini doğru bulmadım
         System.out.println("initialize worked");
         id.setText(UserSession.getCurrentUser().getId().toString());
         id.setDisable(true);
@@ -68,6 +70,7 @@ public class ProfileController {
             Stage stage = (Stage) username.getScene().getWindow();
             stage.setScene(new Scene(parent));
             stage.setTitle("Admin Panel");
+            stage.getScene().getStylesheets().add(getClass().getResource(StyleMode.currentStyle).toExternalForm());
             stage.show();
         } catch (Exception e) {
             System.out.println(SpecialColor.RED + "Admin Sayfasına yönlendirme başarısız" + SpecialColor.RESET);
@@ -82,8 +85,8 @@ public class ProfileController {
         private final ComboBox<ERole> roleComboBox = new ComboBox<>();
 
         public UpdateUserDialog(UserDTO existingUser) {
-            setTitle("Kullanıcı Güncelle");
-            setHeaderText("Kullanıcı bilgilerini düzenleyin");
+            setTitle("Profil Güncelle");
+            setHeaderText("Profilinizi düzenleyin");
 
             usernameField.setText(existingUser.getUsername());
             emailField.setText(existingUser.getEmail());
@@ -155,8 +158,7 @@ public class ProfileController {
 
             Optional<UserDTO> updated = userDAO.update(selectedUser.getId(), updatedUser);
             if (updated.isPresent()) {
-                showAlert("Başarılı", "Kullanıcı güncellendi!", Alert.AlertType.INFORMATION);
-                //refreshTable();
+                showAlert("Başarılı", "Profil güncellendi!", Alert.AlertType.INFORMATION);
                 UserSession.setCurrentUser(updated.get());
                 initialize();
             } else {
@@ -165,10 +167,10 @@ public class ProfileController {
         });
     }
 
-    @FXML
+    /*@FXML
     private void changePassword(ActionEvent event) {
 
-    }
+    }*/
 
     private void showAlert(String title, String message, Alert.AlertType type) {
         Alert alert = new Alert(type);
