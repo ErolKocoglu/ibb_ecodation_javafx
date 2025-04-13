@@ -8,43 +8,44 @@
     <top>
         <VBox>
             <HBox alignment="CENTER_LEFT" spacing="20" style="-fx-background-color: #2c3e50; -fx-padding: 10;" styleClass="navbar">
-                <Label text="🔧 Yönetim Paneli" style="-fx-text-fill: white; -fx-font-size: 20px; -fx-font-weight: bold;" styleClass="header" />
-                <Button text="🌙 Dark Mode" onAction="#toggleTheme" style="-fx-background-color: #2c3e50; -fx-text-fill: white; -fx-background-radius: 8;" />
-                <Button text="🌐 Dil" onAction="#languageTheme" style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-background-radius: 8;" />
-                <Button text="🔔 Bildirimler" onAction="#showNotifications" style="-fx-background-color: #e67e22; -fx-text-fill: white; -fx-background-radius: 8;" />
-                <Button text="💾 Yedekle" onAction="#backupData" style="-fx-background-color: #16a085; -fx-text-fill: white; -fx-background-radius: 8;" />
-                <Button text="🔁 Geri Yükle" onAction="#refreshTable" style="-fx-background-color: #f39c12; -fx-text-fill: white; -fx-background-radius: 8;" />
+                <Label text="🔧 Yönetim Paneli" fx:id="headerLabel" style="-fx-text-fill: white; -fx-font-size: 20px; -fx-font-weight: bold;" styleClass="header" />
+                <Button text="🌙 Dark Mode" fx:id="darkModeButton" onAction="#toggleTheme" style="-fx-background-color: #2c3e50; -fx-text-fill: white; -fx-background-radius: 8;" />
+                <Button text="🌐 Dil" fx:id="languageMenuButton" onAction="#languageTheme" style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-background-radius: 8;" />
+                <Button text="🔔 Bildirimler" fx:id="notificationButton" onAction="#showNotifications" style="-fx-background-color: #e67e22; -fx-text-fill: white; -fx-background-radius: 8;" />
+                <Button text="💾 Yedekle" fx:id="backupButton" onAction="#backupData" style="-fx-background-color: #16a085; -fx-text-fill: white; -fx-background-radius: 8;" />
+                <Button text="🔁 Geri Yükle" fx:id="restoreButton" onAction="#refreshTable" style="-fx-background-color: #f39c12; -fx-text-fill: white; -fx-background-radius: 8;" />
+                <Button text="⬆️ Verileri Yükle" fx:id="restoreDataButton" onAction="#restoreData" style="-fx-background-color: #ecb866; -fx-text-fill: white; -fx-background-radius: 8;" />
 
                 <Pane HBox.hgrow="ALWAYS" />
-                <Button text="🪪 Not Defteri" onAction="#notebook" style="-fx-background-color: #139c12; -fx-text-fill: white; -fx-background-radius: 8;" />
+                <Button text="🪪 Not Defteri" fx:id="notebookButton" onAction="#notebook" style="-fx-background-color: #139c12; -fx-text-fill: white; -fx-background-radius: 8;" />
                 <Pane HBox.hgrow="ALWAYS" />
-                <Button text="👤 Profil" onAction="#showProfile" style="-fx-background-color: #8e44ad; -fx-text-fill: white; -fx-background-radius: 8;" />
+                <Button text="👤 Profil"  fx:id="profileButton" onAction="#showProfile" style="-fx-background-color: #8e44ad; -fx-text-fill: white; -fx-background-radius: 8;" />
 
-                <Button text="🚦Çıkış" onAction="#logout" style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-background-radius: 8;" />
+                <Button text="🚦Çıkış" fx:id="logoutButton" onAction="#logout" style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-background-radius: 8;" />
                 <Label fx:id="clockLabel" style="-fx-text-fill: white;" />
             </HBox>
 
             <MenuBar fx:id="menuBar" styleClass="menu-bar" >
                 <menus>
-                    <Menu styleClass="dosya" text="Dosya">
-                        <MenuItem text="Çıkış" onAction="#logout" />
+                    <Menu fx:id="menuFile" text="Dosya">
+                        <MenuItem fx:id="menuItemExit" text="Çıkış" onAction="#logout" />
                     </Menu>
-                    <Menu text="Kullanıcı">
-                        <MenuItem text="Kullanıcı Ekle" onAction="#addUser" />
-                        <MenuItem text="Kullanıcı Güncelle" onAction="#updateUser" />
-                        <MenuItem text="Kullanıcı Sil" onAction="#deleteUser" />
+                    <Menu fx:id="menuUser" text="Kullanıcı">
+                        <MenuItem fx:id="menuItemAddUser" text="Kullanıcı Ekle" onAction="#addUser" />
+                        <MenuItem fx:id="menuItemUpdateUser" text="Kullanıcı Güncelle" onAction="#updateUser" />
+                        <MenuItem fx:id="menuItemDeleteUser" text="Kullanıcı Sil" onAction="#deleteUser" />
                     </Menu>
-                    <Menu text="KDV İşlemleri">
-                        <MenuItem text="KDV Ekle" onAction="#addKdv" />
-                        <MenuItem text="KDV Güncelle" onAction="#updateKdv" />
-                        <MenuItem text="KDV Sil" onAction="#deleteKdv" />
+                    <Menu fx:id="menuKdv" text="KDV İşlemleri">
+                        <MenuItem fx:id="menuItemAddKdv" text="KDV Ekle" onAction="#addKdv" />
+                        <MenuItem fx:id="menuItemUpdateKdv" text="KDV Güncelle" onAction="#updateKdv" />
+                        <MenuItem fx:id="menuItemDeleteKdv" text="KDV Sil" onAction="#deleteKdv" />
                     </Menu>
-                    <Menu text="Diğer İşlemler">
-                        <MenuItem text="Hesap Makinesi" onAction="#openCalculator" />
-                        <MenuItem text="Not Defteri" onAction="#notebook" />
+                    <Menu fx:id="menuOther" text="Diğer İşlemler">
+                        <MenuItem fx:id="menuItemCalculator" text="Hesap Makinesi" onAction="#openCalculator" />
+                        <MenuItem fx:id="menuItemNotebook" text="Not Defteri" onAction="#notebook" />
                     </Menu>
-                    <Menu text="Yardım">
-                        <MenuItem text="Hakkında" onAction="#showAbout" />
+                    <Menu fx:id="menuHelp" text="Yardım">
+                        <MenuItem fx:id="menuItemAbout" text="Hakkında" onAction="#showAbout" />
                     </Menu>
                 </menus>
             </MenuBar>
@@ -57,7 +58,7 @@
 
             <!-- SOL PANEL (Kullanıcı Yönetimi) -->
             <VBox spacing="20" styleClass="user-table-container"  style="-fx-padding: 30; -fx-background-radius: 15;">
-                <Label text="👤 Kullanıcı Yönetimi" styleClass="user-management" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
+                <Label fx:id="userTitleLabel" text="👤 Kullanıcı Yönetimi" styleClass="user-management" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
                 <TextField fx:id="searchField" promptText="Kullanıcı adı, e-posta veya rol ara..."
                            style="-fx-padding: 10; -fx-background-radius: 8; -fx-border-color: #ccc; -fx-border-radius: 8;" />
                 <ComboBox fx:id="filterRoleComboBox" promptText="Rol filtrele"
@@ -74,10 +75,10 @@
                 </TableView>
 
                 <HBox spacing="10">
-                    <Button text="Ekle" onAction="#addUser" styleClass="add-user" style="-fx-background-radius: 8;" />
-                    <Button text="Güncelle" onAction="#updateUser" styleClass="update-user" style="-fx-background-radius: 8;" />
-                    <Button text="Sil" onAction="#deleteUser" styleClass="delete-user" style="-fx-background-radius: 8;" />
-                    <Button text="Yazdır" onAction="#printTable" styleClass="print-table" style="-fx-background-radius: 8;" />
+                    <Button fx:id="btnAddUser" text="Ekle" onAction="#addUser" styleClass="add-user" style="-fx-background-radius: 8;" />
+                    <Button fx:id="btnUpdateUser" text="Güncelle" onAction="#updateUser" styleClass="update-user" style="-fx-background-radius: 8;" />
+                    <Button fx:id="btnDeleteUser" text="Sil" onAction="#deleteUser" styleClass="delete-user" style="-fx-background-radius: 8;" />
+                    <Button fx:id="btnPrintUser" text="Yazdır" onAction="#printTable" styleClass="print-table" style="-fx-background-radius: 8;" />
                 </HBox>
                 <HBox spacing="10">
                 </HBox>
@@ -85,7 +86,7 @@
 
             <!-- SAĞ PANEL (KDV) -->
             <VBox spacing="15" styleClass="kdv-table-container" style="-fx-padding: 30; -fx-background-radius: 15;">
-                <Label text="📊 KDV Hesaplama" styleClass="kdv-hesaplama" style="-fx-font-size: 18px; -fx-font-weight: bold; " />
+                <Label text="📊 KDV Hesaplama" fx:id="kdvTitleLabel" styleClass="kdv-hesaplama" style="-fx-font-size: 18px; -fx-font-weight: bold; " />
                 <TextField fx:id="searchKdvField" promptText="Fiş numarası ara..."
                            style="-fx-padding: 10; -fx-background-radius: 8; -fx-border-color: #ccc; -fx-border-radius: 8;" />
 
@@ -103,9 +104,9 @@
                 </TableView>
 
                 <HBox spacing="10" alignment="CENTER">
-                    <Button text="KDV Ekle" onAction="#addKdv" styleClass="add-kdv" style="-fx-background-radius: 8;" />
-                    <Button text="Güncelle" onAction="#updateKdv" styleClass="update-kdv" style="-fx-background-radius: 8;" />
-                    <Button text="Sil" onAction="#deleteKdv" styleClass="delete-kdv" style="-fx-background-radius: 8;" />
+                    <Button fx:id="btnAddKdv" text="KDV Ekle" onAction="#addKdv" styleClass="add-kdv" style="-fx-background-radius: 8;" />
+                    <Button fx:id="btnUpdateKdv" text="Güncelle" onAction="#updateKdv" styleClass="update-kdv" style="-fx-background-radius: 8;" />
+                    <Button fx:id="btnDeleteKdv" text="Sil" onAction="#deleteKdv" styleClass="delete-kdv" style="-fx-background-radius: 8;" />
                 </HBox>
 
                 <HBox spacing="10" alignment="CENTER">
@@ -130,7 +131,7 @@
     <!-- FOOTER -->
     <bottom>
         <HBox alignment="CENTER" style="-fx-background-color: #ecf0f1; -fx-padding: 12;">
-            <Label text="© 2025 MSC HAMİT MIZRAK Teknoloji | Kullanıcı ve KDV Yönetimi Sistemi" style="-fx-text-fill: #7f8c8d; -fx-font-size: 13px;" />
+            <Label fx:id="footerLabel" text="© 2025 MSC HAMİT MIZRAK Teknoloji | Kullanıcı ve KDV Yönetimi Sistemi" style="-fx-text-fill: #7f8c8d; -fx-font-size: 13px;" />
         </HBox>
     </bottom>
 

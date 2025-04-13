@@ -37,6 +37,7 @@ public class ProfileController {
     @FXML
     private Button editButton;
 
+
     private UserDAO userDAO;
 
     public ProfileController() {

@@ -49,9 +49,7 @@ import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
-import java.util.Optional;
-import java.util.Properties;
+import java.util.*;
 
 public class AdminController {
 
@@ -100,8 +98,14 @@ public class AdminController {
     private Label clockLabel;
 
 
+
+    private ResourceBundle bundle;
+    private Locale currentLocale = new Locale("en");
+
     @FXML
     public void initialize() {
+        System.out.println("AdminController initialize");
+        loadLanguage(currentLocale);
         // Zaman
         Timeline timeline = new Timeline(
                 new KeyFrame(Duration.seconds(1), e -> {
@@ -1043,8 +1047,170 @@ public class AdminController {
     }
 
     @FXML
+    private Label headerLabel;
+    @FXML
+    private Button darkModeButton;
+    @FXML
+    public Button languageMenuButton;
+    @FXML
+    public Button restoreDataButton;
+    @FXML
+    private Button notificationButton;
+    @FXML
+    private Button backupButton;
+    @FXML
+    private Button restoreButton;
+    @FXML
+    private Button notebookButton;
+    @FXML
+    private Button profileButton;
+    @FXML
+    private Button logoutButton;
+
+//menü FXML
+
+    @FXML
+    private Menu menuFile;
+    @FXML
+    private MenuItem menuItemExit;
+
+    @FXML
+    private Menu menuUser;
+    @FXML
+    private MenuItem menuItemAddUser;
+    @FXML
+    private MenuItem menuItemUpdateUser;
+    @FXML
+    private MenuItem menuItemDeleteUser;
+
+    @FXML
+    private Menu menuKdv;
+    @FXML
+    private MenuItem menuItemAddKdv;
+    @FXML
+    private MenuItem menuItemUpdateKdv;
+    @FXML
+    private MenuItem menuItemDeleteKdv;
+
+    @FXML
+    private Menu menuOther;
+    @FXML
+    private MenuItem menuItemCalculator;
+    @FXML
+    private MenuItem menuItemNotebook;
+
+    @FXML
+    private Menu menuHelp;
+    @FXML
+    private MenuItem menuItemAbout;
+
+    @FXML
+    private Label userTitleLabel;
+    @FXML
+    private Button btnAddUser;
+    @FXML
+    private Button btnUpdateUser;
+    @FXML
+    private Button btnDeleteUser;
+    @FXML
+    private Button btnPrintUser;
+
+    @FXML
+    private Button btnAddKdv;
+    @FXML
+    private Button btnUpdateKdv;
+    @FXML
+    private Button btnDeleteKdv;
+
+    @FXML
+    private Label kdvTitleLabel;
+
+    @FXML
+    private Label footerLabel;
+
+    @FXML
+    private Button btnKdvExportTxt, btnKdvExportPdf, btnKdvExportExcel, btnKdvPrint, btnKdvMail;
+
+    private void loadLanguage(Locale locale) {
+        this.bundle = ResourceBundle.getBundle("lang", locale);
+
+
+        usernameColumn.setText(bundle.getString("user_name"));
+        emailColumn.setText(bundle.getString("e_mail"));
+        passwordColumn.setText(bundle.getString("password_"));
+        roleColumn.setText(bundle.getString("role_"));
+
+        headerLabel.setText(bundle.getString("admin_panel"));
+        darkModeButton.setText(bundle.getString("dark_mode"));
+        languageMenuButton.setText(bundle.getString("language"));
+        notificationButton.setText(bundle.getString("notifications"));
+        backupButton.setText(bundle.getString("backup"));
+        restoreButton.setText(bundle.getString("refresh_table"));
+        notebookButton.setText(bundle.getString("notebook"));
+        profileButton.setText(bundle.getString("profile"));
+        logoutButton.setText(bundle.getString("exit"));
+        restoreDataButton.setText(bundle.getString("restore_data"));
+
+        menuFile.setText(bundle.getString("file"));
+        menuItemExit.setText(bundle.getString("menu_exit"));
+
+        menuUser.setText(bundle.getString("User"));
+        menuItemAddUser.setText(bundle.getString("add_user"));
+        menuItemUpdateUser.setText(bundle.getString("update_user"));
+        menuItemDeleteUser.setText(bundle.getString("delete_user"));
+
+        menuKdv.setText(bundle.getString("vat_operations"));
+        menuItemAddKdv.setText(bundle.getString("add_vat"));
+        menuItemUpdateKdv.setText(bundle.getString("update_vat"));
+        menuItemDeleteKdv.setText(bundle.getString("delete_vat"));
+
+        menuOther.setText(bundle.getString("other_operations"));
+        menuItemCalculator.setText(bundle.getString("calculator"));
+        menuItemNotebook.setText(bundle.getString("menu_notebook"));
+
+        menuHelp.setText(bundle.getString("help"));
+        menuItemAbout.setText(bundle.getString("about"));
+
+
+        searchField.setPromptText(bundle.getString("search_field"));
+        filterRoleComboBox.setPromptText(bundle.getString("filter_role"));
+        kdvTitleLabel.setText(bundle.getString("calculate_vat"));
+
+        btnAddKdv.setText(bundle.getString("add"));
+        btnUpdateKdv.setText(bundle.getString("update"));
+        btnDeleteKdv.setText(bundle.getString("delete"));
+
+        searchKdvField.setPromptText(bundle.getString("search_vat_field"));
+
+        btnKdvExportTxt.setText(bundle.getString("export_txt"));
+        btnKdvExportPdf.setText(bundle.getString("export_pdf"));
+        btnKdvExportExcel.setText(bundle.getString("export_excel"));
+        btnKdvPrint.setText(bundle.getString("print"));
+        btnKdvMail.setText(bundle.getString("send_mail"));
+
+        userTitleLabel.setText(bundle.getString("user_management"));
+        btnAddUser.setText(bundle.getString("add"));
+        btnUpdateUser.setText(bundle.getString("update"));
+        btnDeleteUser.setText(bundle.getString("delete"));
+        btnPrintUser.setText(bundle.getString("print"));
+
+        amountColumn.setText(bundle.getString("price"));
+        kdvRateColumn.setText(bundle.getString("vat_rate"));
+        kdvAmountColumn.setText(bundle.getString("vat_price"));
+        totalAmountColumn.setText(bundle.getString("total"));
+        receiptColumn.setText(bundle.getString("receipt_no"));
+        dateColumn.setText(bundle.getString("date_"));
+        descColumn.setText(bundle.getString("description_"));
+
+        footerLabel.setText(bundle.getString("footer"));
+    }
+
+    @FXML
     private void languageTheme(ActionEvent event) {
         // Uygulamanın dili değiştirilecek (TR/EN vs.)
+        currentLocale = currentLocale.getLanguage().equals("en") ? new Locale("tr") : new Locale("en");
+        loadLanguage(currentLocale);
+
     }
 
     @FXML
