@@ -27,6 +27,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -1227,6 +1228,20 @@ public class AdminController {
     @FXML
     private void showNotifications(ActionEvent event) {
         // Bildirimleri gösteren popup veya panel açılacak
+        try {
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(FXMLPath.NOTIFICATION));
+            Parent root = loader.load();
+
+            Stage stage = new Stage();
+            stage.setTitle("Bildirimler");
+            stage.setScene(new Scene(root));
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.showAndWait();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
