@@ -2,11 +2,11 @@ package com.erolkocoglu.ibb_ecodation_javafx.controller;
 
 import com.erolkocoglu.ibb_ecodation_javafx.dao.KdvDAO;
 import com.erolkocoglu.ibb_ecodation_javafx.dao.UserDAO;
+import com.erolkocoglu.ibb_ecodation_javafx.database.SingletonPropertiesDBConnection;
 import com.erolkocoglu.ibb_ecodation_javafx.dto.KdvDTO;
 import com.erolkocoglu.ibb_ecodation_javafx.dto.UserDTO;
-import com.erolkocoglu.ibb_ecodation_javafx.utils.ERole;
-import com.erolkocoglu.ibb_ecodation_javafx.utils.FXMLPath;
-import com.erolkocoglu.ibb_ecodation_javafx.utils.StyleMode;
+import com.erolkocoglu.ibb_ecodation_javafx.utils.*;
+import com.google.gson.*;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -25,6 +25,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -43,13 +44,20 @@ import javax.mail.internet.MimeMessage;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.lang.reflect.Modifier;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 public class AdminController {
 
@@ -1241,11 +1249,95 @@ public class AdminController {
     @FXML
     private void backupData(ActionEvent event) {
         // Veritabanı yedekleme işlemleri burada yapılacak
+
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Yedekleme Dosyasını Kaydet");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("ZIP Files", "*.zip"));
+        File saveLocation = fileChooser.showSaveDialog(backupButton.getScene().getWindow());
+
+        if (saveLocation != null) {
+            try (FileOutputStream fos = new FileOutputStream(saveLocation);
+                 ZipOutputStream zipOutputStream = new ZipOutputStream(fos)) {
+
+                Optional<List<UserDTO>> allUsers = userDAO.list();
+
+                if (allUsers.isPresent()) {
+                    List<UserDTO> users = allUsers.get();
+
+                    Gson gson = new GsonBuilder()
+                            .excludeFieldsWithModifiers(Modifier.STATIC)
+                            .serializeNulls()
+                            .create();
+
+                    String json = gson.toJson(users);
+
+                    ZipEntry zipEntry = new ZipEntry("backup.json");
+                    zipOutputStream.putNextEntry(zipEntry);
+                    zipOutputStream.write(json.getBytes());
+
+                    zipOutputStream.closeEntry();
+
+                    NotificationUtil.showNotification("Yedekleme tamamlandı", NotificationType.SUCCESS);
+                } else {
+                    System.out.println("Yedeklenecek kullanıcı verisi bulunamadı.");
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+                NotificationUtil.showNotification("Yedekleme başarısız oldu", NotificationType.ERROR);
+            }
+        }
     }
 
     @FXML
     private void restoreData(ActionEvent event) {
         // Daha önce alınmış bir yedek dosyadan veri geri yüklenecek
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Yedek Dosyasını Seç");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Backup File", "*.json"));
+
+        java.io.File file = fileChooser.showOpenDialog(null);
+        if (file == null) {
+            return;
+        }
+
+        try {
+            String jsonContent = Files.readString(Path.of(file.getAbsolutePath()));
+            JsonArray jsonArray = JsonParser.parseString(jsonContent).getAsJsonArray();
+
+            Connection conn = SingletonPropertiesDBConnection.getInstance().getConnection();
+
+            Statement statement = conn.createStatement();
+            statement.execute("DELETE FROM usertable");//tabloyu temizle
+
+            String insertSQL = "INSERT INTO usertable (id, username, password, email) VALUES (?, ?, ?, ?)";
+            PreparedStatement preparedStatement = conn.prepareStatement(insertSQL);
+
+            for (JsonElement jsonElement : jsonArray){
+                JsonObject user = jsonElement.getAsJsonObject();
+
+                int id = user.get("id").getAsInt();
+                String username = user.get("username").getAsString();
+                String password = user.get("password").getAsString();
+                String email = user.get("email").getAsString();
+
+
+                preparedStatement.setInt(1, id);
+                preparedStatement.setString(2, username);
+                preparedStatement.setString(3, password);
+                preparedStatement.setString(4, email);
+
+                preparedStatement.executeUpdate();
+            }
+            preparedStatement.close();
+            System.out.println("Kullanıcılar başarıyla yüklendi!");
+
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 

@@ -35,15 +35,16 @@ module com.erolkocoglu.ibb_ecodation_javafx {
 
     // JDBC ile veritabanı bağlantısı kurabilmek için gerekli modül
     // Java'daki SQL işlemlerini (Connection, Statement, ResultSet vb.) gerçekleştirebilmek için gereklidir.
-    requires java.sql;
     requires com.h2database;
     requires jbcrypt;
     requires org.apache.poi.ooxml;
     requires org.apache.pdfbox;
     requires java.desktop;
     requires java.mail;
+    requires com.google.gson;
+    requires java.sql;
     //requires eu.hansolo.tilesfx;
-
+    //opens com.erolkocoglu.ibb_ecodation_javafx.dto to com.google.gson;
     // #######################################################################################
     // Paket Erişimlerine İzin vermek
     // `opens` ifadesi, bir paketin runtime'da (çalışma zamanında) refleksiyon (reflection) kullanılarak erişilebilir olmasını sağlar.
@@ -51,7 +52,7 @@ module com.erolkocoglu.ibb_ecodation_javafx {
     opens com.erolkocoglu.ibb_ecodation_javafx to javafx.fxml;
 
     // DTO (Data Transfer Object) paketinin içeriği, JavaFX bileşenleri ve Lombok tarafından erişilebilir olmalıdır.
-    opens com.erolkocoglu.ibb_ecodation_javafx.dto to javafx.base, lombok;
+    opens com.erolkocoglu.ibb_ecodation_javafx.dto to javafx.base, lombok, com.google.gson;
 
     // Controller sınıfları FXML tarafından kullanılacağı için açılması gerekiyor.
     opens com.erolkocoglu.ibb_ecodation_javafx.controller to javafx.fxml;
@@ -74,7 +75,7 @@ module com.erolkocoglu.ibb_ecodation_javafx {
 
     // Ana paketi dış dünyaya açıyoruz. Diğer modüller bu paketin içeriğini kullanabilir.
     exports com.erolkocoglu.ibb_ecodation_javafx;
-    opens com.erolkocoglu.ibb_ecodation_javafx.utils to javafx.base, lombok;
+    opens com.erolkocoglu.ibb_ecodation_javafx.utils to javafx.base, lombok, com.google.gson;
 }
 
 //Default
