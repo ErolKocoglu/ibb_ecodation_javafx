@@ -31,6 +31,7 @@
             <Button fx:id="btnAddUser" text="Ekle" onAction="#addNote" styleClass="add-user" style="-fx-background-radius: 8;" />
             <Button fx:id="btnUpdateUser" text="Güncelle" onAction="#updateNote"  styleClass="update-user" style="-fx-background-radius: 8;" />
             <Button fx:id="btnDeleteUser" text="Sil" onAction="#deleteNote" styleClass="delete-user" style="-fx-background-radius: 8;" />
+            <Button fx:id="home" text="Anasayfa" onAction="#home"  style="-fx-background-radius: 8;" />
 
         </HBox>
     </VBox>

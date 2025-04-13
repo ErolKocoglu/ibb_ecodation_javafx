@@ -4,13 +4,20 @@ import com.erolkocoglu.ibb_ecodation_javafx.dao.NotebookDAO;
 import com.erolkocoglu.ibb_ecodation_javafx.dto.KdvDTO;
 import com.erolkocoglu.ibb_ecodation_javafx.dto.NotebookDTO;
 
+import com.erolkocoglu.ibb_ecodation_javafx.utils.FXMLPath;
+import com.erolkocoglu.ibb_ecodation_javafx.utils.SpecialColor;
+import com.erolkocoglu.ibb_ecodation_javafx.utils.StyleMode;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
 
 import java.time.LocalDate;
 import java.util.Date;
@@ -33,6 +40,7 @@ public class NotebookController {
     @FXML private TableColumn<NotebookDTO, Date> updatedDateColumn;
     @FXML private TableColumn<NotebookDTO, String> categoryColumn;
     @FXML private TableColumn<NotebookDTO, Boolean> pinnedColumn;
+    @FXML private Label notebookHeader;
 
     @FXML
     public void initialize() {
@@ -153,6 +161,23 @@ public class NotebookController {
             notebookDAO.delete(Math.toIntExact(selected.getId()));
             refreshTable();
             showAlert("Silindi", "Not kaydı silindi.", Alert.AlertType.INFORMATION);
+        }
+    }
+
+    @FXML
+    public void home(ActionEvent event) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(FXMLPath.ADMIN));
+            Parent parent = fxmlLoader.load();
+
+            Stage stage = (Stage) notebookHeader.getScene().getWindow();
+            stage.setScene(new Scene(parent));
+            stage.setTitle("Admin Panel");
+            stage.getScene().getStylesheets().add(getClass().getResource(StyleMode.currentStyle).toExternalForm());
+            stage.show();
+        } catch (Exception e) {
+            System.out.println(SpecialColor.RED + "Admin Sayfasına yönlendirme başarısız" + SpecialColor.RESET);
+            e.printStackTrace();
         }
     }
 
