@@ -138,5 +138,23 @@ public class NotebookController {
         }
     }
 
+    @FXML
+    public void deleteNote(ActionEvent event) {
+        NotebookDTO selected = notebookTable.getSelectionModel().getSelectedItem();
+        if (selected == null) {
+            showAlert("Uyarı", "Silinecek bir kayıt seçin.", Alert.AlertType.WARNING);
+            return;
+        }
+
+        Alert confirm = new Alert(Alert.AlertType.CONFIRMATION, "Silmek istiyor musunuz?", ButtonType.OK, ButtonType.CANCEL);
+        confirm.setHeaderText("Not: " + selected.getTitle());
+        Optional<ButtonType> result = confirm.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            notebookDAO.delete(Math.toIntExact(selected.getId()));
+            refreshTable();
+            showAlert("Silindi", "Not kaydı silindi.", Alert.AlertType.INFORMATION);
+        }
+    }
+
 
 }
