@@ -9,6 +9,30 @@
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.erolkocoglu.ibb_ecodation_javafx.controller.NotebookController"
-            prefHeight="500.0" prefWidth="700.0">
+            prefHeight="600.0" prefWidth="850.0">
+
+    <VBox spacing="20" styleClass="user-notebook-container"  style="-fx-padding: 30; -fx-background-radius: 15;">
+        <Label fx:id="notebookHeader" text="Not Defterim" styleClass="notebookHeader" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
+
+        <TableView fx:id="notebookTable" prefHeight="500" styleClass="user-table" style="-fx-border-color: #bdc3c7; -fx-background-radius: 10;">
+            <columns>
+                <TableColumn fx:id="idColumn" text="ID" prefWidth="40" />
+                <TableColumn fx:id="titleColumn" text="Başlık" prefWidth="100" />
+                <TableColumn fx:id="contentColumn" text="İçerik" prefWidth="240" />
+                <TableColumn fx:id="createdDatedColumn" text="Oluşturma Tarihi" prefWidth="100" />
+                <TableColumn fx:id="updatedDateColumn" text="Değiştirme Tarihi" prefWidth="80" />
+                <TableColumn fx:id="categoryColumn" text="Kategori" prefWidth="70"/>
+                <TableColumn fx:id="pinnedColumn" text="Sabitlenmiş" prefWidth="50"/>
+
+            </columns>
+        </TableView>
+
+        <HBox spacing="10">
+            <Button fx:id="btnAddUser" text="Ekle" onAction="#addNote" styleClass="add-user" style="-fx-background-radius: 8;" />
+            <Button fx:id="btnUpdateUser" text="Güncelle"  styleClass="update-user" style="-fx-background-radius: 8;" />
+            <Button fx:id="btnDeleteUser" text="Sil"  styleClass="delete-user" style="-fx-background-radius: 8;" />
+
+        </HBox>
+    </VBox>
 
 </AnchorPane>

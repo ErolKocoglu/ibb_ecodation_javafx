@@ -9,4 +9,5 @@ public class FXMLPath {
     public static final String PROFILE= "/com/erolkocoglu/ibb_ecodation_javafx/view/profile.fxml";
     public static final String DARK_MODE="/com/erolkocoglu/ibb_ecodation_javafx/view/css/dark.css";
     public static final String DEFAULT="/com/erolkocoglu/ibb_ecodation_javafx/view/css/default.css";
+    public static final String NOTEBOOK="/com/erolkocoglu/ibb_ecodation_javafx/view/notebook.fxml";
 }

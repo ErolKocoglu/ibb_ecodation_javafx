@@ -1346,7 +1346,20 @@ public class AdminController {
 
     @FXML
     private void notebook(ActionEvent event) {
-        // Daha önce alınmış bir yedek dosyadan veri geri yüklenecek
+        try{
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(FXMLPath.NOTEBOOK));
+            Parent parent = loader.load();//Notebook sayfasını yükle
+            Stage stage = (Stage) searchField.getScene().getWindow();
+            stage.setScene(new Scene(parent));
+            stage.setTitle("Kullanıcı Not Defteri");
+            stage.getScene().getStylesheets().add(getClass().getResource(StyleMode.currentStyle).toExternalForm());
+            stage.show();
+
+        }catch (Exception e){
+            System.out.println("Hata: Not Defteri sayfasına yönlendirme başarısız");
+            e.printStackTrace();
+            showAlert("Hata", "Not Defteri ekranı yüklenemedi", Alert.AlertType.ERROR);
+        }
     }
 
 }

@@ -5,6 +5,7 @@ import com.erolkocoglu.ibb_ecodation_javafx.dto.NotebookDTO;
 
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,13 +19,13 @@ public class NotebookDAO {
     }
 
     public Optional<NotebookDTO> create(NotebookDTO notebookDTO) {
-        String sql = "INSERT INTO notebook_table (title, content, createdDate, updatedDate, category, pinned, userId) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO notebook_table (title, content, createdDate, updatedDate, category, pinned, userId) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
 
             preparedStatement.setString(1, notebookDTO.getTitle());
             preparedStatement.setString(2, notebookDTO.getContent());
-            preparedStatement.setDate(3, Date.valueOf(notebookDTO.getCreatedDate().toLocalDate()) );
-            preparedStatement.setDate(4, Date.valueOf(notebookDTO.getUpdatedDate().toLocalDate()));
+            preparedStatement.setDate(3, Date.valueOf(LocalDate.now()) );
+            preparedStatement.setDate(4, Date.valueOf(LocalDate.now()));
             preparedStatement.setString(5, notebookDTO.getCategory());
             preparedStatement.setBoolean(6, notebookDTO.isPinned());
             preparedStatement.setInt(7, notebookDTO.getUserId());
