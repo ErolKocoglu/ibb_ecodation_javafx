@@ -23,9 +23,9 @@ public class NotificationDTO {
         this.timestamp = timestamp;
     }
 
-    public void saveToFile(String message) {
+    public void saveToFile(String message, NotificationType type) {
         try (FileWriter fw = new FileWriter("bildirimler.txt", true)) {
-            fw.write(message + " - " + LocalDateTime.now() + System.lineSeparator());
+            fw.write(message + " - " + LocalDateTime.now() + " - " + type.name()+ System.lineSeparator());
         } catch (IOException e) {
             System.err.println("⚠️ Bildirim dosyasına yazılamadı: " + e.getMessage());
             e.printStackTrace();

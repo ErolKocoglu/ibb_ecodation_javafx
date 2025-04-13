@@ -15,7 +15,7 @@ public class NotificationDAO {
         notification.setMessage(message);
         notification.setNotificationType(notificationType);
         notification.setTimestamp(LocalDateTime.now());
-        notification.saveToFile(message);
+        notification.saveToFile(message, notificationType);
         notifications.add(notification);
 
     }
