@@ -12,7 +12,7 @@
             prefHeight="400.0" prefWidth="600.0" HBox.hgrow="ALWAYS">
     <center>
 
-            <VBox fx:id="profileContainer" style="-fx-padding: 10;" spacing="10">
+            <VBox fx:id="profileContainer" styleClass="profile-container" style="-fx-padding: 10;" spacing="10">
                 <HBox alignment="CENTER" spacing="10" style="-fx-padding: 10;" maxWidth="900">
 
                     <Button text="🏠Back to Home" styleClass="back-home" onAction="#backToAdmin" fx:id="backButton"/>

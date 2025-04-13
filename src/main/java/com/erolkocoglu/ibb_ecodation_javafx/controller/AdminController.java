@@ -1026,11 +1026,15 @@ public class AdminController {
 
         if(!searchField.getScene().getStylesheets().contains(getClass().getResource(FXMLPath.DARK_MODE).toExternalForm())){
             //searchField.getScene().getStylesheets().add(getClass().getResource("/com/erolkocoglu/ibb_ecodation_javafx/view/css/styles.css").toExternalForm());
+            Button toggleButton = (Button) event.getSource();
+            toggleButton.setText("☀ Light Mode");
             searchField.getScene().getStylesheets().clear();
             searchField.getScene().getStylesheets().add(getClass().getResource(FXMLPath.DARK_MODE).toExternalForm());
             StyleMode.currentStyle=FXMLPath.DARK_MODE;
 
         }else{
+            Button toggleButton = (Button) event.getSource();
+            toggleButton.setText("\uD83C\uDF19 Dark Mode");
             searchField.getScene().getStylesheets().clear();
             searchField.getScene().getStylesheets().add(getClass().getResource(FXMLPath.DEFAULT).toExternalForm());
             StyleMode.currentStyle=FXMLPath.DEFAULT;

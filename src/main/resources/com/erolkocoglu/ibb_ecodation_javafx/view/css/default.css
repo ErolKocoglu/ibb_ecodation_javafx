@@ -59,7 +59,7 @@
 }
 
 .user-table .column-header-background {
-    #-fx-control-inner-background: yellow;
+    /*-fx-control-inner-background: yellow;*/
 }
 
 
@@ -90,3 +90,23 @@
     -fx-transition: all 0.3s ease; /* Hover ve diğer efektlere geçiş animasyonu */
 }
 
+.menu-bar {
+    -fx-background-color: white;
+    -fx-text-fill: #2c3e50;
+}
+
+.user-management {
+    -fx-text-fill: #2c3e50;
+}
+
+.user-table-container {
+    -fx-background-color: rgba(255,255,255,0.9);
+}
+
+.kdv-table-container {
+    -fx-background-color: rgba(255,255,255,0.95);
+}
+
+.kdv-hesaplama {
+    -fx-text-fill: #2c3e50;
+}

@@ -1,9 +1,130 @@
-.navbar {
-    -fx-background-color: brown;
+.profile-container {
+    -fx-background-color: #0B192C;
+}
+
+.back-home, .edit-profile {
+    -fx-background-color: #7187cd; /* Arka plan rengi: Antrasit gri */
+    -fx-text-fill: white; /* Yazı rengi: Beyaz */
+    -fx-font-size: 14px; /* Yazı boyutu */
+    /*-fx-padding: 10px 20px;*/ /* İç boşluk */
+    -fx-border-color: #307775; /* Çerçeve rengi: Yeşil */
+    -fx-border-width: 2px; /* Çerçeve kalınlığı */
+    -fx-border-radius: 8px; /* Yuvarlatılmış köşeler */
+    -fx-background-radius: 8px; /* Yuvarlatılmış köşeler */
+    -fx-cursor: hand; /* İmleç tipi */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 5, 0, 0, 2); /* Gölge efekti */
+    -fx-transition: all 0.3s ease; /* Hover ve diğer efektlere geçiş animasyonu */
+}
+
+.profile-container .text-field {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-color: #2e2020;
+}
+
+/* Butonların rengini koyulaştır*/
+
+.add-user {
+    -fx-background-color: #37473e;
+    -fx-text-fill: white;
+}
+
+.update-user {
+    -fx-background-color: #08456e;
+    -fx-text-fill: white;
+}
+
+.delete-user {
+    -fx-background-color: #571c13;
+    -fx-text-fill: white;
+}
+
+.print-table {
+    -fx-background-color: #526363;
+    -fx-text-fill: white;
+}
+
+.add-kdv {
+    -fx-background-color: #096031;
+    -fx-text-fill: white;
+}
+
+.update-kdv {
+    -fx-background-color: #074f77;
+    -fx-text-fill: white;
+}
+
+.delete-kdv {
+    -fx-background-color: #7e1910;
+    -fx-text-fill: white;
+}
+
+.kdv-export-txt {
+    -fx-background-color: #4f5c5c;
+    -fx-text-fill: white;
+}
+
+.kdv-export-pdf {
+    -fx-background-color: #691f88;
+    -fx-text-fill: white;
+}
+
+.kdv-export-excel {
+    -fx-background-color: #0d6150;
+    -fx-text-fill: white;
+}
+
+.print-kdv{
+    -fx-background-color: #273949;
+    -fx-text-fill: white;
+}
+
+.mail-kdv {
+    -fx-background-color: #883a0a;
+    -fx-text-fill: white;
 }
 
 
+.menu-bar {
+    -fx-background-color: #2c3e50;
 
-.add-user {
-    -fx-background-color: #171d14;
+}
+
+.menu-bar .label {
+    -fx-text-fill: white;
+}
+
+.menu-item {
+    -fx-background-color: #34495e;   /* background color of menu item */
+}
+
+.menu-item .label {
+    -fx-text-fill: white;            /* text color of menu item */
+}
+
+.table-cell {
+    -fx-text-fill: #fdfcfc;
+    -fx-font-weight: bold;
+}
+
+.table-view {
+    -fx-background-color: #45788f;
+    -fx-control-inner-background: #45788f;
+    -fx-table-cell-border-color: transparent;
+}
+
+.user-management {
+    -fx-text-fill:rgba(255,255,255,0.9) ;
+}
+
+.user-table-container {
+    -fx-background-color: #2c3e50;
+}
+
+.kdv-table-container {
+    -fx-background-color:#2c3e50 ;
+}
+
+.kdv-hesaplama {
+    -fx-text-fill: rgba(255,255,255,0.95);
 }

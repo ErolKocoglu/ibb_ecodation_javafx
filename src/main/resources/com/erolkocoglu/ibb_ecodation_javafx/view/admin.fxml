@@ -9,7 +9,7 @@
         <VBox>
             <HBox alignment="CENTER_LEFT" spacing="20" style="-fx-background-color: #2c3e50; -fx-padding: 10;" styleClass="navbar">
                 <Label text="🔧 Yönetim Paneli" style="-fx-text-fill: white; -fx-font-size: 20px; -fx-font-weight: bold;" styleClass="header" />
-                <Button text="🌙 Karanlık Mod" onAction="#toggleTheme" style="-fx-background-color: #2c3e50; -fx-text-fill: white; -fx-background-radius: 8;" />
+                <Button text="🌙 Dark Mode" onAction="#toggleTheme" style="-fx-background-color: #2c3e50; -fx-text-fill: white; -fx-background-radius: 8;" />
                 <Button text="🌐 Dil" onAction="#languageTheme" style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-background-radius: 8;" />
                 <Button text="🔔 Bildirimler" onAction="#showNotifications" style="-fx-background-color: #e67e22; -fx-text-fill: white; -fx-background-radius: 8;" />
                 <Button text="💾 Yedekle" onAction="#backupData" style="-fx-background-color: #16a085; -fx-text-fill: white; -fx-background-radius: 8;" />
@@ -24,9 +24,9 @@
                 <Label fx:id="clockLabel" style="-fx-text-fill: white;" />
             </HBox>
 
-            <MenuBar fx:id="menuBar" style="-fx-background-color: white; -fx-text-fill: #2c3e50;">
+            <MenuBar fx:id="menuBar" styleClass="menu-bar" >
                 <menus>
-                    <Menu text="Dosya">
+                    <Menu styleClass="dosya" text="Dosya">
                         <MenuItem text="Çıkış" onAction="#logout" />
                     </Menu>
                     <Menu text="Kullanıcı">
@@ -56,8 +56,8 @@
         <SplitPane orientation="HORIZONTAL" style="-fx-background-image: url('./images/login.webp'); -fx-background-size: cover;">
 
             <!-- SOL PANEL (Kullanıcı Yönetimi) -->
-            <VBox spacing="20" style="-fx-padding: 30; -fx-background-color: rgba(255,255,255,0.9); -fx-background-radius: 15;">
-                <Label text="👤 Kullanıcı Yönetimi" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;" />
+            <VBox spacing="20" styleClass="user-table-container"  style="-fx-padding: 30; -fx-background-radius: 15;">
+                <Label text="👤 Kullanıcı Yönetimi" styleClass="user-management" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
                 <TextField fx:id="searchField" promptText="Kullanıcı adı, e-posta veya rol ara..."
                            style="-fx-padding: 10; -fx-background-radius: 8; -fx-border-color: #ccc; -fx-border-radius: 8;" />
                 <ComboBox fx:id="filterRoleComboBox" promptText="Rol filtrele"
@@ -84,8 +84,8 @@
             </VBox>
 
             <!-- SAĞ PANEL (KDV) -->
-            <VBox spacing="15" style="-fx-padding: 30; -fx-background-color: rgba(255,255,255,0.95); -fx-background-radius: 15;">
-                <Label text="📊 KDV Hesaplama" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;" />
+            <VBox spacing="15" styleClass="kdv-table-container" style="-fx-padding: 30; -fx-background-radius: 15;">
+                <Label text="📊 KDV Hesaplama" styleClass="kdv-hesaplama" style="-fx-font-size: 18px; -fx-font-weight: bold; " />
                 <TextField fx:id="searchKdvField" promptText="Fiş numarası ara..."
                            style="-fx-padding: 10; -fx-background-radius: 8; -fx-border-color: #ccc; -fx-border-radius: 8;" />
 
