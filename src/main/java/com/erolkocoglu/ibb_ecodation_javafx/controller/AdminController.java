@@ -1328,7 +1328,7 @@ public class AdminController {
             Statement statement = conn.createStatement();
             statement.execute("DELETE FROM usertable");//tabloyu temizle
 
-            String insertSQL = "INSERT INTO usertable (id, username, password, email) VALUES (?, ?, ?, ?)";
+            String insertSQL = "INSERT INTO usertable (id, username, password, email, role) VALUES (?, ?, ?, ?, ?)";
             PreparedStatement preparedStatement = conn.prepareStatement(insertSQL);
 
             for (JsonElement jsonElement : jsonArray){
@@ -1338,12 +1338,14 @@ public class AdminController {
                 String username = user.get("username").getAsString();
                 String password = user.get("password").getAsString();
                 String email = user.get("email").getAsString();
+                ERole role = ERole.valueOf(user.get("role").getAsString());
 
 
                 preparedStatement.setInt(1, id);
                 preparedStatement.setString(2, username);
                 preparedStatement.setString(3, password);
                 preparedStatement.setString(4, email);
+                preparedStatement.setString(5, role.name());
 
                 preparedStatement.executeUpdate();
             }
